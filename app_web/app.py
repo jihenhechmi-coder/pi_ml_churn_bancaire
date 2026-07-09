@@ -191,7 +191,7 @@ PLOTLY_LAYOUT = dict(
 # ======================================================================
 @st.cache_resource
 def load_model():
-    model = joblib.load(os.path.join(BASE_DIR, "model_churn.pkl")))
+    model = joblib.load(os.path.join(BASE_DIR, "model_churn.pkl"))
     features = joblib.load(os.path.join(BASE_DIR, "features_churn.pkl"))
     return model, features
 
