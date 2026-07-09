@@ -4,7 +4,8 @@ import numpy as np
 import joblib
 import plotly.express as px
 import plotly.graph_objects as go
-
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 st.set_page_config(page_title="Churn Bancaire | Pilotage Client", page_icon="🏦", layout="wide")
 
 # ======================================================================
@@ -190,13 +191,13 @@ PLOTLY_LAYOUT = dict(
 # ======================================================================
 @st.cache_resource
 def load_model():
-    model = joblib.load("model_churn.pkl")
-    features = joblib.load("features_churn.pkl")
+    model = joblib.load(os.path.join(BASE_DIR, "model_churn.pkl")))
+    features = joblib.load(os.path.join(BASE_DIR, "features_churn.pkl"))
     return model, features
 
 @st.cache_data(ttl=3600)
 def load_data():
-    return pd.read_csv("fact_client_ml.csv")
+    return pd.read_csv(os.path.join(BASE_DIR, "fact_client_ml.csv"))
 
 model, FEATURES = load_model()
 df = load_data()
@@ -374,3 +375,4 @@ else:
     st.download_button("📥 Exporter la liste (CSV)",
                        risk[cols].to_csv(index=False).encode("utf-8"),
                        "comptes_a_risque.csv", "text/csv")
+
